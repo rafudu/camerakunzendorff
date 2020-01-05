@@ -1,11 +1,10 @@
 import processing.video.*;
 PImage img = null;
 Capture cam;
-int CAM_WIDTH = 1280;
-int CAM_HEIGHT = 720;
+
 int clickCount = 0;
 void setup() {
-  size(1280, 720);
+  size(320, 240);
   colorMode(HSB);
 
   String[] cameras = Capture.list();
@@ -14,7 +13,7 @@ void setup() {
     exit();
   }
 
-  cam = new Capture(this, cameras[0]);
+  cam = new Capture(this, 320,240);
   cam.start();
 }
 void draw(){
@@ -23,26 +22,29 @@ void draw(){
   }
   
   
-  alpha(120);
-  noStroke();
+  
   if(img != null){
     image(img, 0,0);
   }else {
     image(cam, 0,0);
   }
+  alpha(120);
+  noStroke();
   fill(frameCount % 255,  255, 255, 80);
-  rect(0,0,width,height);
+  //rect(0,0,width,height);
 
 }
 
 void mousePressed(){
+  
   if(mouseButton == RIGHT){
-    img = transformImage(img);
+    img = sortPixels(img);
     return;
   }
+  
   clickCount++;
-  if(clickCount % 2 == 1){
-    
+  
+  if(clickCount % 2 == 1){  
     img = cam.copy();
    // cam.stop();
    }
@@ -52,8 +54,8 @@ void mousePressed(){
   
 }
 
-PImage transformImage(PImage srcImage){
-  println("TRASNFORMER");
+PImage sortPixels(PImage srcImage){
+  println("TRANSFORMER");
   
   return srcImage;
 }
